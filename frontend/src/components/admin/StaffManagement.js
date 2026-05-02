@@ -5,7 +5,7 @@ import api from '../../utils/api';
 function AddStaffModal({ onClose, onSave, loading }) {
   const [form, setForm] = useState({ name:'', email:'', password:'password123', role:'doctor', phone:'', doctorInfo:{ specialization:'', qualification:'', experience:0, consultationFee:0, licenseNumber:'', schedule:'' } });
   return (
-    <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
+    <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()} style={{ overflowY: 'auto', display: 'flex', alignItems: 'flex-start', paddingTop: '20px' }}>
       <div className="modal" style={{ overflowY: 'auto', maxHeight: '90vh' }}>
         <div className="modal-header"><h2 className="modal-title">Add Staff Member</h2><button onClick={onClose} style={{ background:'none',border:'none',cursor:'pointer' }}><X size={20} /></button></div>
         <div className="two-col">
