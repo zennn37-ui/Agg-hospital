@@ -6,7 +6,7 @@ function AddStaffModal({ onClose, onSave, loading }) {
   const [form, setForm] = useState({ name:'', email:'', password:'password123', role:'doctor', phone:'', doctorInfo:{ specialization:'', qualification:'', experience:0, consultationFee:0, licenseNumber:'', schedule:'' } });
   return (
     <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
-      <div className="modal">
+      <div className="modal" style={{ overflowY: 'auto', maxHeight: '90vh' }}>
         <div className="modal-header"><h2 className="modal-title">Add Staff Member</h2><button onClick={onClose} style={{ background:'none',border:'none',cursor:'pointer' }}><X size={20} /></button></div>
         <div className="two-col">
           <div className="form-group"><label className="form-label">Full Name *</label><input className="form-control" value={form.name} onChange={e => setForm(f=>({...f,name:e.target.value}))} /></div>

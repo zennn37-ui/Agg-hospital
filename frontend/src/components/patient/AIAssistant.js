@@ -95,7 +95,7 @@ export default function AIAssistant() {
               <div style={{ maxWidth: '74%' }}>
                 <div style={{ padding: '13px 16px', borderRadius: msg.role === 'user' ? '16px 4px 16px 16px' : '4px 16px 16px 16px', background: msg.role === 'user' ? 'linear-gradient(135deg, var(--primary), var(--primary-light))' : '#f8fafc', border: msg.role === 'assistant' ? '1px solid var(--border-light)' : 'none', color: msg.role === 'user' ? '#fff' : 'var(--text-primary)', fontSize: 14, lineHeight: 1.65 }}>
                   {formatContent(msg.content)}
-                  {msg.demo && <div style={{ marginTop: 8, fontSize: 11, color: 'var(--text-muted)', borderTop: '1px solid var(--border-light)', paddingTop: 6 }}>⚡ Demo mode — add OPENAI_API_KEY for full AI responses</div>}
+                  
                 </div>
                 <div style={{ fontSize: 10.5, color: 'var(--text-muted)', marginTop: 4, textAlign: msg.role === 'user' ? 'right' : 'left' }}>
                   {msg.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
