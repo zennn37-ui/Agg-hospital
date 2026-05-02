@@ -3,18 +3,27 @@ import { Search, Plus, Star, Users, X } from 'lucide-react';
 import api from '../../utils/api';
 
 function AddStaffModal({ onClose, onSave, loading }) {
+  const [step, setStep] = useState(1);
   const [form, setForm] = useState({ name:'', email:'', password:'password123', role:'doctor', phone:'', doctorInfo:{ specialization:'', qualification:'', experience:0, consultationFee:0, licenseNumber:'', schedule:'' } });
+  
   return (
-    <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()} style={{ position:'fixed', top:0, left:0, right:0, bottom:0, zIndex:99999, background:'rgba(0,0,0,0.5)', display:'flex', alignItems:'center', justifyContent:'center', overflowY:'auto' }}>
-      <div className="modal" style={{ maxHeight:'80vh', overflowY:'auto', width:'100%', maxWidth:'560px' }}>
-        <div className="modal-header"><h2 className="modal-title">Add Staff Member</h2><button onClick={onClose} style={{ background:'none',border:'none',cursor:'pointer' }}><X size={20} /></button></div>
-        <div className="two-col">
-          <div className="form-group"><label className="form-label">Full Name *</label><input className="form-control" value={form.name} onChange={e => setForm(f=>({...f,name:e.target.value}))} /></div>
-          <div className="form-group"><label className="form-label">Email *</label><input type="email" className="form-control" value={form.email} onChange={e => setForm(f=>({...f,email:e.target.value}))} /></div>
-          <div className="form-group"><label className="form-label">Phone</label><input className="form-control" value={form.phone} onChange={e => setForm(f=>({...f,phone:e.target.value}))} /></div>
-          <div className="form-group"><label className="form-label">Role *</label><select className="form-control" value={form.role} onChange={e => setForm(f=>({...f,role:e.target.value}))}>{['doctor','nurse','receptionist','pharmacist'].map(r=><option key={r} style={{ textTransform:'capitalize' }}>{r}</option>)}</select></div>
+    <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()} style={{ position:'fixed', top:0, left:0, right:0, bottom:0, zIndex:99999, background:'rgba(0,0,0,0.5)', display:'flex', alignItems:'center', justifyContent:'center' }}>
+      <div className="modal" style={{ width:'100%', maxWidth:'560px' }}>
+        <div className="modal-header">
+          <h2 className="modal-title">{step === 1 ? 'Add Staff Member' : 'Doctor Details'}</h2>
+          <button onClick={onClose} style={{ background:'none',border:'none',cursor:'pointer' }}><X size={20} /></button>
         </div>
-        {form.role === 'doctor' && (
+
+        {step === 1 && (
+          <div className="two-col">
+            <div className="form-group"><label className="form-label">Full Name *</label><input className="form-control" value={form.name} onChange={e => setForm(f=>({...f,name:e.target.value}))} /></div>
+            <div className="form-group"><label className="form-label">Email *</label><input type="email" className="form-control" value={form.email} onChange={e => setForm(f=>({...f,email:e.target.value}))} /></div>
+            <div className="form-group"><label className="form-label">Phone</label><input className="form-control" value={form.phone} onChange={e => setForm(f=>({...f,phone:e.target.value}))} /></div>
+            <div className="form-group"><label className="form-label">Role *</label><select className="form-control" value={form.role} onChange={e => setForm(f=>({...f,role:e.target.value}))}>{['doctor','nurse','receptionist','pharmacist'].map(r=><option key={r} style={{ textTransform:'capitalize' }}>{r}</option>)}</select></div>
+          </div>
+        )}
+
+        {step === 2 && form.role === 'doctor' && (
           <div className="two-col">
             {[['specialization','Specialization'],['qualification','Qualification'],['licenseNumber','License No.'],['schedule','Schedule']].map(([k,l])=>(
               <div key={k} className="form-group"><label className="form-label">{l}</label><input className="form-control" value={form.doctorInfo[k]||''} onChange={e=>setForm(f=>({...f,doctorInfo:{...f.doctorInfo,[k]:e.target.value}}))} /></div>
@@ -23,9 +32,17 @@ function AddStaffModal({ onClose, onSave, loading }) {
             <div className="form-group"><label className="form-label">Consultation Fee (₹)</label><input type="number" className="form-control" value={form.doctorInfo.consultationFee} onChange={e=>setForm(f=>({...f,doctorInfo:{...f.doctorInfo,consultationFee:e.target.value}}))} /></div>
           </div>
         )}
+
         <p style={{ fontSize:12, color:'var(--text-muted)', marginBottom:16 }}>Default password: <strong>password123</strong> (user can change after login)</p>
+        
         <div style={{ display:'flex', gap:10 }}>
-          <button className="btn btn-primary" disabled={loading||!form.name||!form.email} onClick={() => onSave(form)}>{loading?'Creating…':'Create Staff'}</button>
+          {step === 1 && form.role === 'doctor' && (
+            <button className="btn btn-primary" disabled={!form.name||!form.email} onClick={() => setStep(2)}>Next →</button>
+          )}
+          {(step === 2 || form.role !== 'doctor') && (
+            <button className="btn btn-primary" disabled={loading||!form.name||!form.email} onClick={() => onSave(form)}>{loading?'Creating…':'Create Staff'}</button>
+          )}
+          {step === 2 && <button className="btn btn-ghost" onClick={() => setStep(1)}>← Back</button>}
           <button className="btn btn-ghost" onClick={onClose}>Cancel</button>
         </div>
       </div>
