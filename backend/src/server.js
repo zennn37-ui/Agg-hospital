@@ -41,6 +41,15 @@ if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'OK', timestamp: new Date().toISOString(), service: 'AGG Hospital API' }));
 
+app.get('/api/seed-now', async (req, res) => {
+  try {
+    const User = require('./models/User');
+    const count = await User.countDocuments();
+    res.json({ message: 'DB connected!', userCount: count });
+  } catch(e) {
+    res.json({ error: e.message });
+  }
+});
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/appointments', appointmentRoutes);
