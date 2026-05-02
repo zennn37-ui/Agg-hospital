@@ -4,12 +4,12 @@ import { useAuth } from '../context/AuthContext';
 import { Heart, User, Stethoscope, Shield, Activity, UserCheck, Pill, ArrowRight, Lock, Mail, Eye, EyeOff, AlertCircle } from 'lucide-react';
 
 const ROLES = [
-  { key: 'patient', label: 'Patient', icon: User, color: '#05bfdb', desc: 'View your health records & appointments', demo: 'patient@agg.com' },
-  { key: 'doctor', label: 'Doctor', icon: Stethoscope, color: '#00d4aa', desc: 'Manage patients & prescriptions', demo: 'doctor@agg.com' },
-  { key: 'admin', label: 'Administrator', icon: Shield, color: '#c9a84c', desc: 'Hospital management & analytics', demo: 'admin@agg.com' },
-  { key: 'nurse', label: 'Nurse', icon: Activity, color: '#e879f9', desc: 'Patient vitals & medication care', demo: 'nurse@agg.com' },
-  { key: 'receptionist', label: 'Receptionist', icon: UserCheck, color: '#fb923c', desc: 'Appointments & patient registration', demo: 'reception@agg.com' },
-  { key: 'pharmacist', label: 'Pharmacist', icon: Pill, color: '#60a5fa', desc: 'Prescriptions & drug inventory', demo: 'pharmacy@agg.com' },
+  { key: 'patient', label: 'Patient', icon: User, color: '#05bfdb', desc: 'View your health records & appointments'},
+  { key: 'doctor', label: 'Doctor', icon: Stethoscope, color: '#00d4aa', desc: 'Manage patients & prescriptions'},
+  { key: 'admin', label: 'Administrator', icon: Shield, color: '#c9a84c', desc: 'Hospital management & analytics'},
+  { key: 'nurse', label: 'Nurse', icon: Activity, color: '#e879f9', desc: 'Patient vitals & medication care'},
+  { key: 'receptionist', label: 'Receptionist', icon: UserCheck, color: '#fb923c', desc: 'Appointments & patient registration'},
+  { key: 'pharmacist', label: 'Pharmacist', icon: Pill, color: '#60a5fa', desc: 'Prescriptions & drug inventory'},
 ];
 
 export default function LoginPage() {
@@ -26,7 +26,7 @@ export default function LoginPage() {
 
   const handleRoleSelect = (role) => {
     setSelected(role.key);
-    setForm({ email: role.demo, password: 'password123' });
+    setForm({ email: '', password: '' });
     setLocalError('');
     setError?.(null);
   };
@@ -148,16 +148,14 @@ export default function LoginPage() {
                   {submitting ? <><div className="spinner" style={{ width: 18, height: 18, borderWidth: 2 }} /> Signing in...</> : <>Sign In <ArrowRight size={16} /></>}
                 </button>
               </form>
-              <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.25)', fontSize: 12, marginTop: 20 }}>
-                Demo: credentials are pre-filled. Click Sign In.
-              </p>
+            
               <p style={{ textAlign: 'center', marginTop: 12 }}>
                 <Link to="/register" style={{ color: selectedRole.color, fontSize: 13 }}>Don't have an account? Register →</Link>
               </p>
             </div>
           )}
         </div>
-        <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.18)', fontSize: 12, marginTop: 24 }}>© 2024 AGG Hospital · Final Year Project · All rights reserved</p>
+        <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.18)', fontSize: 12, marginTop: 24 }}>© 2026 AGG Hospital · Final Year Project · All rights reserved</p>
       </div>
     </div>
   );

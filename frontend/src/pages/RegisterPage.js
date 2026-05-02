@@ -55,16 +55,7 @@ export default function RegisterPage() {
                   style={{ width: '100%', padding: '11px 14px', background: 'rgba(255,255,255,0.07)', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: 10, color: '#fff', fontSize: 14, outline: 'none' }} />
               </div>
             ))}
-            <div style={{ marginBottom: 24 }}>
-              <label style={{ display: 'block', color: 'rgba(255,255,255,0.55)', fontSize: 11.5, fontWeight: 600, marginBottom: 6, letterSpacing: 0.6, textTransform: 'uppercase' }}>Role</label>
-              <select name="role" value={form.role} onChange={handleChange} style={{ width: '100%', padding: '11px 14px', background: 'rgba(255,255,255,0.07)', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: 10, color: '#fff', fontSize: 14, outline: 'none' }}>
-                <option value="patient" style={{ background: '#0a4d68' }}>Patient</option>
-                <option value="doctor" style={{ background: '#0a4d68' }}>Doctor</option>
-                <option value="nurse" style={{ background: '#0a4d68' }}>Nurse</option>
-                <option value="receptionist" style={{ background: '#0a4d68' }}>Receptionist</option>
-                <option value="pharmacist" style={{ background: '#0a4d68' }}>Pharmacist</option>
-              </select>
-            </div>
+          
             <button type="submit" disabled={submitting} style={{ width: '100%', padding: 14, borderRadius: 12, border: 'none', background: 'linear-gradient(135deg, #05bfdb, #0a4d68)', color: '#fff', fontSize: 15, fontWeight: 600, cursor: submitting ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: submitting ? 0.8 : 1 }}>
               {submitting ? 'Creating Account...' : <> Create Account <ArrowRight size={16} /></>}
             </button>
