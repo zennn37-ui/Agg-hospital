@@ -7,7 +7,7 @@ router.use(protect);
 router.get('/admin/stats', authorize('admin'), getAdminStats);
 router.get('/nurse/patients', authorize('nurse'), getNursePatients);
 router.route('/')
-  .get(authorize('admin', 'doctor', 'nurse', 'receptionist'), getUsers)
+  .get(authorize('admin', 'doctor', 'nurse', 'receptionist', 'patient'), getUsers)
   .post(authorize('admin'), createUser);
 router.route('/:id')
   .get(getUser)
