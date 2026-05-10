@@ -54,7 +54,7 @@ function ViewStaffModal({ staff, onClose }) {
   if (!staff) return null;
   const info = staff.doctorInfo || staff.nurseInfo || {};
   return (
-    <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()} style={{ position:'fixed', top:0, left:0, right:0, bottom:0, zIndex:99999, background:'rgba(0,0,0,0.5)', display:'flex', alignItems:'center', justifyContent:'center' }}>
+    <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()} style={{ position:'fixed', top:0, left:0, right:0, bottom:0, zIndex:99999, background:'rgba(0,0,0,0.5)', display:'flex', alignItems:'flex-start', justifyContent:'center', paddingTop:'40px', overflowY:'auto' }}>
       <div className="modal" style={{ width:'100%', maxWidth:'480px', maxHeight:'90vh', overflowY:'auto' }}>
         <div className="modal-header">
           <h2 className="modal-title">Staff Details</h2>
