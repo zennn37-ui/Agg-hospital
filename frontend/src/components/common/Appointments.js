@@ -77,7 +77,7 @@ export default function Appointments() {
   const [showModal, setShowModal] = useState(false);
   const [booking, setBooking] = useState(false);
   const [error, setError] = useState('');
-  const canBook = ['patient','receptionist','admin'].includes(user?.role);
+  const canBook = ['patient','receptionist'].includes(user?.role);
 
   useEffect(() => { fetchAppointments(); }, []);
 
