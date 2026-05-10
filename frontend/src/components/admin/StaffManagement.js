@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Search, Plus, Star, Users, X } from 'lucide-react';
 import api from '../../utils/api';
 
-function AddStaffModal({ onClose, onSave, loading }) {
+function AddStaffModal({ onClose, onSave, loading, initialData }) {
   const [step, setStep] = useState(1);
-  const [form, setForm] = useState({ name:'', email:'', password:'password123', role:'doctor', phone:'', doctorInfo:{ specialization:'', qualification:'', experience:0, consultationFee:0, licenseNumber:'', schedule:'' } });
+  const [form, setForm] = useState(initialData || { name:'', email:'', password:'password123', role:'doctor', phone:'', doctorInfo:{ specialization:'', qualification:'', experience:0, consultationFee:0, licenseNumber:'', schedule:'' } });
   
   return (
     <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()} style={{ position:'fixed', top:0, left:0, right:0, bottom:0, zIndex:99999, background:'rgba(0,0,0,0.5)', display:'flex', alignItems:'center', justifyContent:'center' }}>
       <div className="modal" style={{ width:'100%', maxWidth:'560px' }}>
         <div className="modal-header">
-          <h2 className="modal-title">{step === 1 ? 'Add Staff Member' : 'Doctor Details'}</h2>
+          <h2 className="modal-title">{initialData ? 'Edit Staff Member' : step === 1 ? 'Add Staff Member' : 'Doctor Details'}</h2>
           <button onClick={onClose} style={{ background:'none',border:'none',cursor:'pointer' }}><X size={20} /></button>
         </div>
 
@@ -40,7 +40,7 @@ function AddStaffModal({ onClose, onSave, loading }) {
             <button className="btn btn-primary" disabled={!form.name||!form.email} onClick={() => setStep(2)}>Next →</button>
           )}
           {(step === 2 || form.role !== 'doctor') && (
-            <button className="btn btn-primary" disabled={loading||!form.name||!form.email} onClick={() => onSave(form)}>{loading?'Creating…':'Create Staff'}</button>
+            <button className="btn btn-primary" disabled={loading||!form.name||!form.email} onClick={() => onSave(form)}>{loading ? 'Saving…' : initialData ? 'Save Changes' : 'Create Staff'}</button>
           )}
           {step === 2 && <button className="btn btn-ghost" onClick={() => setStep(1)}>← Back</button>}
           <button className="btn btn-ghost" onClick={onClose}>Cancel</button>
@@ -121,7 +121,7 @@ export default function StaffManagement() {
     <div className="fade-in">
       {showModal && <AddStaffModal onClose={() => setShowModal(false)} onSave={handleCreate} loading={creating} />}
       {viewStaff && <ViewStaffModal staff={viewStaff} onClose={() => setViewStaff(null)} />}
-      {editStaff && <AddStaffModal onClose={() => setEditStaff(null)} onSave={handleEdit} loading={creating} />}
+      {editStaff && <AddStaffModal onClose={() => setEditStaff(null)} onSave={handleEdit} loading={creating} initialData={editStaff} />}
       <div style={{ display:'flex', gap:12, marginBottom:22, alignItems:'center' }}>
         <div className="search-bar" style={{ flex:1 }}><Search size={14} color="var(--text-muted)" /><input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search staff…" /></div>
         <button className="btn btn-primary" onClick={() => setShowModal(true)}><Plus size={14} /> Add Staff</button>
